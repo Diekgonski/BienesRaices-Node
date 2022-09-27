@@ -2,6 +2,7 @@ import Propiedad from './Propiedad.js'
 import Precio from './Precio.js'
 import Categoria from './Categoria.js'
 import Usuario from './Usuario.js'
+import Mensaje from './Mensaje.js';
 
 
 // Relacion 1:1, una propiedad tiene un precio
@@ -15,10 +16,14 @@ Propiedad.belongsTo(Categoria, {foreingKey: 'idCategoria', as: 'categoria'});
 // Relacion 1:1, una propiedad tiene un usuario
 Propiedad.belongsTo(Usuario, {foreingKey: 'idUsuario', as: 'usuario'});
 
+Mensaje.belongsTo(Propiedad, {foreingKey: 'idPropiedad', as: 'propiedad'});
+Mensaje.belongsTo(Usuario, {foreingKey: 'idUsuario', as: 'usuario'});
+
 
 export {
     Propiedad,
     Precio,
     Categoria,
-    Usuario
+    Usuario,
+    Mensaje
 }
