@@ -55,10 +55,41 @@ const emailOlvideMiPassword = async (datos) => {
           <p>Si tu no solicitaste el cambio de password, por favor ignora este mensaje</p>
       `   
           
-    })
+    });
+}
+
+const emailNotificacionNuevoMensaje = async (datos) => {
+  const transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
+
+  const { email, nombre, nombrePropiedad, emailSolicitante, nombreSolicitante, idPropiedad } = datos;
+
+  // Enviar Email
+  await transport.sendMail({
+    from: 'BienesRaices.com',
+    to: email,
+    subject: 'Nuevo mensaje en tu publicación de BienesRaices.com',
+    text: '¡Alguien esta interesado en tu propiedad!',
+    html: `
+        <p>Hola ${nombre}, alguien esta interesado en tu propiedad ${nombrePropiedad} y te ha enviado un nuevo mensaje, los detalles del solicitante: </p>
+
+        <p>- Nombre Solicitante: ${nombreSolicitante}</p>
+        <p>- Email Solicitante: ${emailSolicitante}</p>
+
+        <p>Sigue el siguiente enlace para ver el nuevo mensaje: <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 3000}/mensajes/${idPropiedad}">Ver Nuevo Mensaje</a></p>
+    `   
+        
+  });
 }
 
 export {
     emailRegistro,
-    emailOlvideMiPassword
+    emailOlvideMiPassword,
+    emailNotificacionNuevoMensaje
 }
