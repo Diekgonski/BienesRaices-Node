@@ -1,5 +1,5 @@
 import express from "express";
-import { formularioLogin, autenticarUsuario,registrarUsuario, confirmarToken,formularioRegistro, formularioOlvidoPassword, resetearPassword, confirmarTokenResetPassword, generarNuevoPassword } from "../controllers/UsuarioController.js";
+import { formularioLogin, autenticarUsuario, cerrarSesion,registrarUsuario, confirmarToken,formularioRegistro, formularioOlvidoPassword, resetearPassword, confirmarTokenResetPassword, generarNuevoPassword } from "../controllers/UsuarioController.js";
 
 
 const router = express.Router();
@@ -7,6 +7,9 @@ const router = express.Router();
 //Route Login
 router.get('/login', formularioLogin);
 router.post('/login', autenticarUsuario);
+
+//Route Cerrar Sesión
+router.post('/cerrarSesion', cerrarSesion);
 
 //Route Registro
 router.get('/registro', formularioRegistro);
